@@ -1,0 +1,13 @@
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:drawable="@color/splashBackground"/>
+
+    <item android:drawable="@drawable/ic_cloud_circle_splash" android:bottom="88dp" android:gravity="center">
+        <!--<bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_magic_ball"/>-->
+    </item>
+
+</layer-list>
