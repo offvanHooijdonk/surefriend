@@ -1,4 +1,4 @@
-package by.off.surefriend.presentation
+package by.off.surefriend.presentation.main
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import by.off.surefriend.R
-import by.off.surefriend.di.presentation.MainComponent
+import by.off.surefriend.presentation.clients.ClientsFragment
+import by.off.surefriend.presentation.di.MainComponent
 import by.off.surefriend.storage.StorageService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MainComponent.get().inject(this)
+        MainComponent.get(applicationContext).inject(this)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigate(Navigation.default())
@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity() {
                     ClientsFragment()
                 }
                 Navigation.OFFERS -> {
-                    InsuranceFragment()
+                    //InsuranceFragment()
+                    null
                 }
                 Navigation.WHAT -> {
                     toast("Sorry but no."); null

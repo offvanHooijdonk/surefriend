@@ -1,34 +1,35 @@
-package by.off.surefriend.presentation
+package by.off.surefriend.presentation.clients
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import by.off.surefriend.R
-import by.off.surefriend.app.SureApp
-import by.off.surefriend.di.presentation.ClientsComponent
 import by.off.surefriend.model.ClientInfo
-import by.off.surefriend.storage.ClientService
+import by.off.surefriend.presentation.R
+import by.off.surefriend.presentation.di.ClientsComponent
 import kotlinx.android.synthetic.main.fr_clients.*
 import kotlinx.android.synthetic.main.item_client.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 class ClientsFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val clientList = mutableListOf<ClientInfo>()
     private val adapter = ClientsAdapter(clientList)
 
-    @Inject
-    lateinit var clientService: ClientService
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ClientsComponent.get().inject(this)
+        ClientsComponent.get(requireActivity().applicationContext).inject(this)
         return inflater.inflate(R.layout.fr_clients, container, false)
     }
 
@@ -39,7 +40,10 @@ class ClientsFragment : Fragment() {
         rvClients.adapter = adapter
 
         CoroutineScope(EmptyCoroutineContext).launch {
-            onDataChanged(clientService.list())
+            Log.i("SFR", "launch ${Thread.currentThread().name}")
+            val data = ViewModelProviders.of(requireActivity(), viewModelFactory).get(ClientsViewModel::class.java)
+                .loadUsers()
+            onDataChanged(data)
         }
     }
 

@@ -1,8 +1,9 @@
-package by.off.surefriend.presentation
+package by.off.surefriend.presentation.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import by.off.surefriend.R
+import by.off.surefriend.presentation.main.MainActivity
 import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {
