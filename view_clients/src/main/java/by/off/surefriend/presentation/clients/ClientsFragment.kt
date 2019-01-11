@@ -36,9 +36,17 @@ class ClientsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ClientsComponent.get(requireActivity().applicationContext).inject(this)
 
-        rvClients.layoutManager = LinearLayoutManager(context)
         rvClients.adapter = adapter
+        rvClients.layoutManager = LinearLayoutManager(context)
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        loadData()
+    }
+
+    private fun loadData() {
         CoroutineScope(EmptyCoroutineContext).launch {
             Log.i("SFR", "launch ${Thread.currentThread().name}")
             val data = ViewModelProviders.of(requireActivity(), viewModelFactory).get(ClientsViewModel::class.java)
@@ -47,7 +55,7 @@ class ClientsFragment : Fragment() {
         }
     }
 
-    fun onDataChanged(data: Array<ClientInfo>) {
+    private fun onDataChanged(data: Array<ClientInfo>) {
         clientList.clear()
         clientList.addAll(data)
 

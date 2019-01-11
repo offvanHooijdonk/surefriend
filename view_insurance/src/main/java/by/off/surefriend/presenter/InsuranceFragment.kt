@@ -34,9 +34,17 @@ class InsuranceFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         InsuranceScreenComponent.get(requireActivity().applicationContext).inject(this)
 
-        rvInsurances.layoutManager = LinearLayoutManager(context)
         rvInsurances.adapter = adapter
+        rvInsurances.layoutManager = LinearLayoutManager(context)
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        loadData()
+    }
+
+    private fun loadData() {
         CoroutineScope(EmptyCoroutineContext).launch {
             val data = ViewModelProviders.of(requireActivity(), viewModelFactory)[InsuranceViewModel::class.java].get()
             onDataChange(data)
