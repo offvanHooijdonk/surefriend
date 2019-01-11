@@ -1,4 +1,4 @@
-package by.off.surefriend.presentation.di
+package by.off.surefriend.core.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

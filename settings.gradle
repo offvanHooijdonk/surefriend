@@ -1,1 +1,1 @@
-include ':app', ':model', ':core_storage_api', ':core_db_api', ':core_db_impl', ':core_storage_impl', ':core_utils', ':view_main', ':view_clients'
+include ':app', ':model', ':core_storage_api', ':core_db_api', ':core_db_impl', ':core_storage_impl', ':core_utils', ':view_main', ':view_clients', ':view_insurance'

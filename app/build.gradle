@@ -38,6 +38,7 @@ dependencies {
     implementation project(":core_utils")
     implementation project(":view_main")
     implementation project(":view_clients")
+    implementation project(":view_insurance")
     implementation project(":core_utils")
 
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")

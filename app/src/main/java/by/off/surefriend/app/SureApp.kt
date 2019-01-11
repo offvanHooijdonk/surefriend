@@ -5,17 +5,19 @@ import android.content.Context
 import by.off.surefriend.di.app.AppComponent
 import by.off.surefriend.presentation.di.ClientsComponent
 import by.off.surefriend.presentation.di.MainComponent
+import by.off.surefriend.presenter.di.InsuranceScreenComponent
 
 class SureApp : Application(),
     MainComponent.MainComponentProvider,
-    ClientsComponent.ClientsDependenciesProvider {
+    ClientsComponent.ClientsDependenciesProvider,
+    InsuranceScreenComponent.InsuranceScreenProvider {
+
 
     companion object {
         private lateinit var appContext: Context
         private lateinit var component: AppComponent
 
         fun getApplicationContext() = appContext
-        fun getComponent() = component
     }
 
 
@@ -26,11 +28,12 @@ class SureApp : Application(),
         component = AppComponent.component
     }
 
-    override fun provideMainDependencies(): MainComponent.MainComponentDependencies {
-        return component
-    }
+    override fun provideMainDependencies(): MainComponent.MainComponentDependencies = component
 
-    override fun provideClientsDependencies(): ClientsComponent.ClientsComponentDependencies {
-        return component
-    }
+
+    override fun provideClientsDependencies(): ClientsComponent.ClientsComponentDependencies = component
+
+
+    override fun provideInsuranceScreenDependencies(): InsuranceScreenComponent.InsuranceScreenDependencies = component
+
 }

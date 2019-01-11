@@ -29,12 +29,12 @@ class ClientsFragment : Fragment() {
     private val adapter = ClientsAdapter(clientList)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ClientsComponent.get(requireActivity().applicationContext).inject(this)
         return inflater.inflate(R.layout.fr_clients, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ClientsComponent.get(requireActivity().applicationContext).inject(this)
 
         rvClients.layoutManager = LinearLayoutManager(context)
         rvClients.adapter = adapter
@@ -72,5 +72,5 @@ private class ClientsAdapter(val clientsList: List<ClientInfo>) : RecyclerView.A
         clientsList.size
 
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

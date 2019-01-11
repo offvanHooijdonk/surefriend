@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
+
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-android-extensions"
 
 android {
     compileSdkVersion 28
-
-
 
     defaultConfig {
         minSdkVersion 21
@@ -27,12 +27,14 @@ android {
 }
 
 dependencies {
-    ext.dagger_version = "2.8"
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'

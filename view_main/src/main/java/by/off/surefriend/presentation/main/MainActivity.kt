@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import by.off.surefriend.presentation.clients.ClientsFragment
 import by.off.surefriend.presentation.di.MainComponent
+import by.off.surefriend.presenter.InsuranceFragment
 import by.off.surefriend.storage.StorageService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -55,8 +56,7 @@ class MainActivity : AppCompatActivity() {
                     ClientsFragment()
                 }
                 Navigation.OFFERS -> {
-                    //InsuranceFragment()
-                    null
+                    InsuranceFragment()
                 }
                 Navigation.WHAT -> {
                     toast("Sorry but no."); null
