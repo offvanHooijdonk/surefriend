@@ -14,6 +14,7 @@ import by.off.surefriend.presenter.di.InsuranceScreenComponent
 import kotlinx.android.synthetic.main.fr_insurances.*
 import kotlinx.android.synthetic.main.item_insurance.view.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import javax.inject.Inject
@@ -45,7 +46,7 @@ class InsuranceFragment: Fragment() {
     }
 
     private fun loadData() {
-        CoroutineScope(EmptyCoroutineContext).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val data = ViewModelProviders.of(requireActivity(), viewModelFactory)[InsuranceViewModel::class.java].get()
             onDataChange(data)
         }

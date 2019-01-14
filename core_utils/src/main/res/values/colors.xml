@@ -8,4 +8,8 @@
     <color name="colorAccentDark">#c63d37</color>
     <color name="splashBackground">@color/colorAccent</color>
     <color name="splash_logo">#ffffff</color>
+
+    <color name="refresh1">@color/colorAccent</color>
+    <color name="refresh2">@color/colorPrimaryLight</color>
+    <color name="refresh3">@color/md_blue_500</color>
 </resources>
