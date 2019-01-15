@@ -7,19 +7,25 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import by.off.surefriend.core.LOGCAT
 import by.off.surefriend.core.ui.setupDefault
 import by.off.surefriend.model.ClientInfo
 import by.off.surefriend.presentation.R
 import by.off.surefriend.presentation.databinding.ItemClientBinding
 import by.off.surefriend.presentation.di.ClientsComponent
 import kotlinx.android.synthetic.main.fr_clients.*
+import kotlinx.android.synthetic.main.item_client.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.bundleOf
+import org.jetbrains.anko.contentView
 import javax.inject.Inject
 
 class ClientsFragment : Fragment() {
@@ -29,9 +35,14 @@ class ClientsFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val clientList = mutableListOf<ClientInfo>()
-    private val adapter = ClientsAdapter(clientList)
+    private val adapter = ClientsAdapter(clientList) { onItemClicked(it) }
+
+    init {
+        Log.i(LOGCAT, "CREATE CLIENTS LIST FRAGMENT OBJECT")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.i(LOGCAT, "CREATE CLIENTS LIST FRAGMENT VIEW")
         return inflater.inflate(R.layout.fr_clients, container, false)
     }
 
@@ -75,9 +86,16 @@ class ClientsFragment : Fragment() {
         adapter.notifyDataSetChanged()
         refreshClients.isRefreshing = false
     }
+
+    private fun onItemClicked(position: Int) {
+        Navigation.findNavController(this.view!!)
+            .navigate(R.id.actionToClientInfo, bundleOf(ClientInfoFragment.EXTRA_CLIENT_INFO to clientList[position].id))
+    }
+
 }
 
-private class ClientsAdapter(val clientsList: List<ClientInfo>) : RecyclerView.Adapter<ClientsAdapter.ViewHolder>() {
+private class ClientsAdapter(private val clientsList: List<ClientInfo>, private val onClick: (position: Int) -> Unit) :
+    RecyclerView.Adapter<ClientsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(container: ViewGroup, type: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemClientBinding>(
@@ -92,6 +110,10 @@ private class ClientsAdapter(val clientsList: List<ClientInfo>) : RecyclerView.A
     override fun onBindViewHolder(vh: ViewHolder, position: Int) {
         val client = clientsList[position]
         vh.binding.client = client
+
+        vh.itemView.root.setOnClickListener {
+            onClick(position)
+        }
     }
 
     override fun getItemCount(): Int =

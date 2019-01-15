@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         MainComponent.get(applicationContext).inject(this)
 
         NavigationUI.setupWithNavController(navigation, NavHostFragment.findNavController(navContainer))
+        navigation.selectedItemId = R.id.nav_clients
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

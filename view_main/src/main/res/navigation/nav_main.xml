@@ -4,14 +4,20 @@
             android:id="@+id/nav_main"
             app:startDestination="@id/destClients">
 
+    <!--<fragment android:id="@+id/dummyFragment" android:name="by.off.surefriend.presentation.main.DummyFragment" />-->
+    <fragment android:id="@+id/destClients" android:name="by.off.surefriend.presentation.main.DummyFragment" />
+
     <fragment
             android:id="@+id/destInsurance"
             android:label="InsuranceFragment"
             android:name="by.off.surefriend.presenter.InsuranceFragment" />
 
-    <fragment
+    <!--<fragment
             android:id="@+id/destClients"
-            android:label="ClientsFragment"
-            android:name="by.off.surefriend.presentation.clients.ClientsFragment" />
+            android:label="@string/title_clients"
+            android:name="by.off.surefriend.presentation.clients.ClientsFragment"/>-->
 
+    <!--<action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />-->
+
+    <include app:graph="@navigation/nav_clients" />
 </navigation>
