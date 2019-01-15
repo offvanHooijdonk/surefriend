@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/navigation_clients"
+            android:id="@id/destClients"
             android:icon="@drawable/ic_clients_24"
             android:title="@string/title_clients"/>
 
     <item
-            android:id="@+id/navigation_offers"
+            android:id="@id/destInsurance"
             android:icon="@drawable/ic_cloud_circle_24"
             android:title="@string/title_offers"/>
 
