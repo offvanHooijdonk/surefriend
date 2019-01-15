@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nav_clients"
+            app:startDestination="@id/destClients">
+
+    <fragment
+            android:id="@+id/destClients"
+            android:name="by.off.surefriend.presentation.clients.ClientsFragment">
+        <action
+                android:id="@+id/actionToClientInfo"
+                app:destination="@id/fragClientInfo"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                    android:name="extra_client_info"
+                    app:nullable="false" />
+        </action>
+    </fragment>
+
+    <fragment
+            android:id="@+id/fragClientInfo"
+            android:name="by.off.surefriend.presentation.clients.ClientInfoFragment" />
+
+</navigation>

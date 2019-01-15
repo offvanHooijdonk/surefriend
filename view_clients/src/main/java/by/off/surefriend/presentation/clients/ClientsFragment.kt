@@ -37,12 +37,7 @@ class ClientsFragment : Fragment() {
     private val clientList = mutableListOf<ClientInfo>()
     private val adapter = ClientsAdapter(clientList) { onItemClicked(it) }
 
-    init {
-        Log.i(LOGCAT, "CREATE CLIENTS LIST FRAGMENT OBJECT")
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.i(LOGCAT, "CREATE CLIENTS LIST FRAGMENT VIEW")
         return inflater.inflate(R.layout.fr_clients, container, false)
     }
 
@@ -88,7 +83,7 @@ class ClientsFragment : Fragment() {
     }
 
     private fun onItemClicked(position: Int) {
-        Navigation.findNavController(this.view!!)
+        Navigation.findNavController(this@ClientsFragment.view!!)
             .navigate(R.id.actionToClientInfo, bundleOf(ClientInfoFragment.EXTRA_CLIENT_INFO to clientList[position].id))
     }
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.lang.String" />
+
+        <variable
+                name="client"
+                type="by.off.surefriend.model.ClientInfo" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+                android:id="@+id/txtClientFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{client.fullName}"
+                android:textSize="26sp"
+                tools:text="@string/fish_full_name" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(client.age)}"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@id/txtClientFullName"
+                android:textColor="@color/colorAccent"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                tools:text="@string/fish_age" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
