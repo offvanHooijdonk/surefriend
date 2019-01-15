@@ -4,7 +4,9 @@
             android:id="@+id/nav_main"
             app:startDestination="@id/dummyFragment">
 
-    <fragment android:id="@+id/dummyFragment" android:name="by.off.surefriend.presentation.main.DummyFragment" />
+    <fragment android:id="@+id/dummyFragment" android:name="by.off.surefriend.presentation.main.DummyFragment">
+        <action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />
+    </fragment>
     <!--<fragment android:id="@id/destClients" android:name="by.off.surefriend.presentation.main.DummyFragment" />-->
 
     <fragment
@@ -17,7 +19,7 @@
             android:label="@string/title_clients"
             android:name="by.off.surefriend.presentation.clients.ClientsFragment"/>-->
 
-    <action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />
+    <!--<action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />-->
 
     <include app:graph="@navigation/nav_clients" />
 </navigation>
