@@ -13,7 +13,7 @@ interface ClientRoomDao : ClientDao {
     override fun save(client: ClientInfo)
 
     @Query("select * from ClientInfo where id = :id")
-    override fun get(id: String): ClientInfo
+    override fun get(id: Long): ClientInfo
 
     @Query("select * from ClientInfo order by fullName")
     override fun list(): Array<ClientInfo>

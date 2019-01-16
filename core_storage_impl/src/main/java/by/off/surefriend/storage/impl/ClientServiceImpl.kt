@@ -19,8 +19,8 @@ class ClientServiceImpl @Inject constructor(private val clientDao: ClientDao) : 
         }.await()
     }
 
-    override suspend fun get(id: String): ClientInfo = coroutineScope {
-        this.async {
+    override suspend fun get(id: Long): ClientInfo = coroutineScope {
+        this.async(Dispatchers.IO) {
             clientDao.get(id)
         }.await()
     }

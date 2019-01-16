@@ -7,7 +7,7 @@
             android:title="@string/title_clients"/>
 
     <item
-            android:id="@id/destInsurance"
+            android:id="@id/toInsuranceGraph"
             android:icon="@drawable/ic_cloud_circle_24"
             android:title="@string/title_offers"/>
 

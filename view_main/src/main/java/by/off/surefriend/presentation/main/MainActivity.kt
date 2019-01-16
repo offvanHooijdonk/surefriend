@@ -32,15 +32,13 @@ class MainActivity : AppCompatActivity() {
         MainComponent.get(applicationContext).inject(this)
 
         val navCtrl: NavController = NavHostFragment.findNavController(navContainer)
-        navCtrl.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.dummyFragment) {
-                Log.i(LOGCAT, "Popping away from the app!")
-                controller.popBackStack()
-            }
+
+        savedInstanceState ?: let {
+            navCtrl.navigate(R.id.toClientsGraph)
+            navigation.selectedItemId = R.id.toClientsGraph
         }
 
         NavigationUI.setupWithNavController(navigation, navCtrl)
-        navigation.selectedItemId = R.id.toClientsGraph
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

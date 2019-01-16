@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.Fade
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigator
 import by.off.surefriend.core.LOGCAT
 import by.off.surefriend.core.ui.setupDefault
 import by.off.surefriend.model.ClientInfo
@@ -35,7 +37,7 @@ class ClientsFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val clientList = mutableListOf<ClientInfo>()
-    private val adapter = ClientsAdapter(clientList) { onItemClicked(it) }
+    private val adapter = ClientsAdapter(clientList) { i, vh -> onItemClicked(i, vh) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fr_clients, container, false)
@@ -82,14 +84,20 @@ class ClientsFragment : Fragment() {
         refreshClients.isRefreshing = false
     }
 
-    private fun onItemClicked(position: Int) {
+    private fun onItemClicked(position: Int, vh: ClientsAdapter.ViewHolder) {
         Navigation.findNavController(this@ClientsFragment.view!!)
-            .navigate(R.id.actionToClientInfo, bundleOf(ClientInfoFragment.EXTRA_CLIENT_INFO to clientList[position].id))
+            .navigate(
+                R.id.actionToClientInfo,
+                bundleOf(ClientInfoFragment.EXTRA_CLIENT_INFO to clientList[position].id)
+            )
     }
 
 }
 
-private class ClientsAdapter(private val clientsList: List<ClientInfo>, private val onClick: (position: Int) -> Unit) :
+private class ClientsAdapter(
+    private val clientsList: List<ClientInfo>,
+    private val onClick: (position: Int, vh: ViewHolder) -> Unit
+) :
     RecyclerView.Adapter<ClientsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(container: ViewGroup, type: Int): ViewHolder {
@@ -107,7 +115,7 @@ private class ClientsAdapter(private val clientsList: List<ClientInfo>, private 
         vh.binding.client = client
 
         vh.itemView.root.setOnClickListener {
-            onClick(position)
+            onClick(position, vh)
         }
     }
 

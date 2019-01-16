@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data>
 
@@ -11,29 +10,49 @@
                 type="by.off.surefriend.model.ClientInfo" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/activity_vertical_margin">
 
-        <TextView
-                android:id="@+id/txtClientFullName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{client.fullName}"
-                android:textSize="26sp"
-                tools:text="@string/fish_full_name" />
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/blockInfoRoot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/txtClientFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{client.fullName}"
+                    android:textSize="26sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/fish_full_name" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:text="@{String.valueOf(client.age)}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtClientFullName"
+                    tools:text="@string/fish_age" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
+
+                android:id="@+id/txtNoDataProvided"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(client.age)}"
-                android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/txtClientFullName"
-                android:textColor="@color/colorAccent"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                tools:text="@string/fish_age" />
-
-    </android.support.constraint.ConstraintLayout>
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="@string/error_empty_extras"
+                android:visibility="gone" />
+    </FrameLayout>
 </layout>

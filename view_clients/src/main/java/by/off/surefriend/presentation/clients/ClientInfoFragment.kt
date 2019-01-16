@@ -5,12 +5,18 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.transition.ChangeBounds
+import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import by.off.surefriend.core.ui.hide
+import by.off.surefriend.core.ui.show
 import by.off.surefriend.presentation.R
 import by.off.surefriend.presentation.databinding.FrClientInfoBinding
+import by.off.surefriend.presentation.di.ClientsComponent
+import kotlinx.android.synthetic.main.fr_client_info.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,13 +25,12 @@ import javax.inject.Inject
 class ClientInfoFragment : Fragment() {
     companion object {
         const val EXTRA_CLIENT_INFO = "extra_client_info" // TODO move to resources
-        private const val EMPTY_ID = ""
     }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var clientId: String
+    private var clientId: Long? = null
     private lateinit var binding: FrClientInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,7 +41,9 @@ class ClientInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clientId = arguments?.getString(EXTRA_CLIENT_INFO) ?: EMPTY_ID
+        ClientsComponent.get(requireActivity().applicationContext).inject(this)
+
+        clientId = arguments?.getLong(EXTRA_CLIENT_INFO)
     }
 
     override fun onStart() {
@@ -46,8 +53,9 @@ class ClientInfoFragment : Fragment() {
     }
 
     private fun loadData() {
-        if (clientId == EMPTY_ID) {
-            Toast.makeText(requireContext(), "No info passed!", Toast.LENGTH_LONG).show()
+        val clientId = this.clientId
+        if (clientId == null) {
+            showNoDataProvided(true)
             return
         }
 
@@ -59,4 +67,15 @@ class ClientInfoFragment : Fragment() {
             binding.client = clientInfo
         }
     }
+
+    private fun showNoDataProvided(isShow: Boolean) {
+        if (isShow) {
+            blockInfoRoot.hide()
+            txtNoDataProvided.show()
+        } else {
+            txtNoDataProvided.hide()
+            blockInfoRoot.show()
+        }
+    }
+
 }

@@ -6,5 +6,5 @@ import by.off.surefriend.storage.ClientService
 import javax.inject.Inject
 
 class ClientInfoViewModel @Inject constructor(private  val clientService: ClientService) : ViewModel() {
-    suspend fun getClient(id: String): ClientInfo = clientService.get(id)
+    suspend fun getClient(id: Long): ClientInfo = clientService.get(id)
 }

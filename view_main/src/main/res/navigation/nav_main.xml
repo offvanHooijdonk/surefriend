@@ -4,9 +4,10 @@
             android:id="@+id/nav_main"
             app:startDestination="@id/dummyFragment">
 
-    <fragment android:id="@+id/dummyFragment" android:name="by.off.surefriend.presentation.main.DummyFragment">
-        <action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />
-    </fragment>
+    <fragment
+            android:id="@+id/dummyFragment"
+            android:name="by.off.surefriend.presentation.main.DummyFragment" />
+
     <!--<fragment android:id="@id/destClients" android:name="by.off.surefriend.presentation.main.DummyFragment" />-->
 
     <fragment
@@ -14,12 +15,14 @@
             android:label="InsuranceFragment"
             android:name="by.off.surefriend.presenter.InsuranceFragment" />
 
-    <!--<fragment
-            android:id="@+id/destClients"
-            android:label="@string/title_clients"
-            android:name="by.off.surefriend.presentation.clients.ClientsFragment"/>-->
-
-    <!--<action app:destination="@id/nav_clients" android:id="@+id/toClientsGraph" />-->
+    <action
+            android:id="@+id/toClientsGraph"
+            app:destination="@id/nav_clients"
+            app:popUpTo="@id/dummyFragment"
+            app:popUpToInclusive="true" />
+    <action
+            android:id="@+id/toInsuranceGraph"
+            app:destination="@id/destInsurance" />
 
     <include app:graph="@navigation/nav_clients" />
 </navigation>
