@@ -1,5 +1,6 @@
 package by.off.surefriend.db.impl
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -13,8 +14,8 @@ interface ClientRoomDao : ClientDao {
     override fun save(client: ClientInfo)
 
     @Query("select * from ClientInfo where id = :id")
-    override fun get(id: Long): ClientInfo
+    override fun get(id: Long): LiveData<ClientInfo>
 
     @Query("select * from ClientInfo order by fullName")
-    override fun list(): Array<ClientInfo>
+    override fun list(): LiveData<Array<ClientInfo>>
 }

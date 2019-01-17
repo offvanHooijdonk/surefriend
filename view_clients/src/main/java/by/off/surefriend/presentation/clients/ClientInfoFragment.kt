@@ -1,5 +1,6 @@
 package by.off.surefriend.presentation.clients
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import by.off.surefriend.presentation.di.ClientsComponent
 import kotlinx.android.synthetic.main.fr_client_info.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +34,7 @@ class ClientInfoFragment : Fragment() {
 
     private var clientId: Long? = null
     private lateinit var binding: FrClientInfoBinding
+    private var job: Job? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fr_client_info, container, false)
@@ -49,8 +52,17 @@ class ClientInfoFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+
         loadData()
     }
+
+    override fun onStop() {
+        super.onStop()
+
+        job?.cancel()
+    }
+
+    private fun getViewModel() = ViewModelProviders.of(this, viewModelFactory)[ClientInfoViewModel::class.java]
 
     private fun loadData() {
         val clientId = this.clientId
@@ -59,12 +71,11 @@ class ClientInfoFragment : Fragment() {
             return
         }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val clientInfo =
-                ViewModelProviders.of(this@ClientInfoFragment, viewModelFactory)[ClientInfoViewModel::class.java]
-                    .getClient(clientId)
-
-            binding.client = clientInfo
+        job = CoroutineScope(Dispatchers.Main).launch {
+            getViewModel().getClient(clientId)
+                .observe(this@ClientInfoFragment, Observer { clientInfo ->
+                    clientInfo?.let { /*binding.client = clientInfo*/ }
+                })
         }
     }
 

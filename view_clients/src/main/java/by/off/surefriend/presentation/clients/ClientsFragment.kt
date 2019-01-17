@@ -1,5 +1,6 @@
 package by.off.surefriend.presentation.clients
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -67,12 +68,15 @@ class ClientsFragment : Fragment() {
         job?.cancel()
     }
 
+    private fun getViewModel() =
+        ViewModelProviders.of(this, viewModelFactory).get(ClientsViewModel::class.java)
+
     private fun loadData() {
         job?.cancel()
         job = CoroutineScope(Dispatchers.Main).launch {
-            val data = ViewModelProviders.of(requireActivity(), viewModelFactory).get(ClientsViewModel::class.java)
-                .loadUsers()
-            onDataChanged(data)
+            getViewModel().loadUsers().observe(this@ClientsFragment, Observer { data ->
+                data?.let { onDataChanged(data) }
+            })
         }
     }
 

@@ -1,5 +1,6 @@
 package by.off.surefriend.storage.impl
 
+import android.arch.lifecycle.LiveData
 import android.util.Log
 import by.off.surefriend.core.LOGCAT
 import by.off.surefriend.db.ClientDao
@@ -19,21 +20,18 @@ class ClientServiceImpl @Inject constructor(private val clientDao: ClientDao) : 
         }.await()
     }
 
-    override suspend fun get(id: Long): ClientInfo = coroutineScope {
+    override suspend fun get(id: Long): LiveData<ClientInfo> = coroutineScope {
+        Log.i(LOGCAT, "Call for a client with ID=$id")
         this.async(Dispatchers.IO) {
             clientDao.get(id)
         }.await()
     }
 
-    override suspend fun list(): Array<ClientInfo> = coroutineScope {
+    override suspend fun list(): LiveData<Array<ClientInfo>> = coroutineScope {
         this.async(Dispatchers.IO) {
-            Log.i(LOGCAT, "async ${Thread.currentThread().name}")
+            Log.i(LOGCAT, "Load clientsø")
             clientDao.list()
         }.await()
     }
-    /*CoroutineScope(EmptyCoroutineContext).async {
-        Log.i("SFR", "async ${Thread.currentThread().name}")
-        clientDao.list()
-    }.await()*/
 
 }

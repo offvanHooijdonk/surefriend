@@ -1,22 +1,17 @@
 package by.off.surefriend.presentation.main
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import by.off.surefriend.core.LOGCAT
 import by.off.surefriend.presentation.di.MainComponent
 import by.off.surefriend.storage.StorageService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 import kotlin.coroutines.EmptyCoroutineContext
 
